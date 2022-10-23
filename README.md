@@ -9,9 +9,3 @@
 ```
     $ python eye_filter.py
 ```
-
-
-
-
-## Author
-[Shrey Khandelwal](https://github.com/HawkingRadiation42)
