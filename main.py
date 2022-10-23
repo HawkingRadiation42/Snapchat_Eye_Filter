@@ -3,12 +3,12 @@ import cv2
 import dlib  
 from scipy.spatial import distance as dist  
 from scipy.spatial import ConvexHull  
-  
+
 PREDICTOR_PATH = "assets/shape_predictor_68_face_landmarks.dat"  
-  
-FULL_POINTS = list(range(0, 68))  
-FACE_POINTS = list(range(17, 68))  
-   
+
+FULL_POINTS = list(range(0, 68))
+FACE_POINTS = list(range(17, 68))
+
 JAWLINE_POINTS = list(range(0, 17))  
 RIGHT_EYEBROW_POINTS = list(range(17, 22))  
 LEFT_EYEBROW_POINTS = list(range(22, 27))  
@@ -17,23 +17,23 @@ RIGHT_EYE_POINTS = list(range(36, 42))
 LEFT_EYE_POINTS = list(range(42, 48))  
 MOUTH_OUTLINE_POINTS = list(range(48, 61))  
 MOUTH_INNER_POINTS = list(range(61, 68))  
-  
+
 detector = dlib.get_frontal_face_detector()  
-  
+
 predictor = dlib.shape_predictor(PREDICTOR_PATH)  
-  
+
 def eye_size(eye):  
     eyeWidth = dist.euclidean(eye[0], eye[3])  
     hull = ConvexHull(eye)  
     eyeCenter = np.mean(eye[hull.vertices, :], axis=0)  
-  
+
     eyeCenter = eyeCenter.astype(int)  
-   
+
     return int(eyeWidth), eyeCenter  
-   
+
 def place_eye(frame, eyeCenter, eyeSize):  
     eyeSize = int(eyeSize * 1.5)  
- 
+
     x1 = int(eyeCenter[0,0] - (eyeSize/2))  
     x2 = int(eyeCenter[0,0] + (eyeSize/2))  
     y1 = int(eyeCenter[0,1] - (eyeSize/2))  
